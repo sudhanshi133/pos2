@@ -1,0 +1,150 @@
+<app-navbar></app-navbar>
+<app-toast></app-toast>
+<div class="orders-container">
+  <div class="header">
+    <h1>Orders</h1>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    Loading...
+  </div>
+
+  <div *ngIf="!loading && !error" class="orders-grid">
+    <div class="order-card" *ngFor="let order of orders; let i = index">
+      <div class="order-header">
+        <div class="order-info">
+          <div class="order-id-time">
+            <span class="order-id">Order #{{ order.orderId }}</span>
+            <span class="order-time">
+              <i class="bi bi-clock"></i>
+              {{ formatDate(order.orderTime) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="customer-details">
+        <div class="customer-name">
+          <span class="detail-label">Customer Name:</span>
+          <span class="detail-value">{{ order.name || 'N/A' }}</span>
+        </div>
+        <div class="customer-phone">
+          <span class="detail-label">Customer Phone:</span>
+          <span class="detail-value">{{ order.phoneNumber || 'N/A' }}</span>
+        </div>
+      </div>
+
+      <div class="order-actions">
+        <div class="button-group">
+          <button class="action-button view-details-button" (click)="viewOrderDetails(order)" title="View Details">
+            <i class="bi bi-eye"></i>
+          </button>
+          <button class="action-button download-button" (click)="downloadInvoice(order)" title="Download Invoice">
+            <i class="bi bi-download"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && orders.length === 0" class="no-orders">
+    No orders found.
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="orders.length > 0">
+    <div class="pagination-info">
+      <span>Page {{ currentPage + 1 }}</span>
+    </div>
+    <div class="pagination-buttons">
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage === 0"
+        (click)="previousPage()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage >= totalPages - 1"
+        (click)="nextPage()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div class="modal" *ngIf="selectedOrder">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <div class="order-header-row">
+            <h3>Order #{{ selectedOrder.orderId }}</h3>
+            <span class="order-date-time">{{ formatDate(selectedOrder.orderTime) | date:'MMM d, y' }} | {{ formatDate(selectedOrder.orderTime) | date:'hh:mm a' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <!-- Customer Details Section -->
+        <div class="customer-info">
+          <h4>Customer Information</h4>
+          <div class="customer-details-grid">
+            <div class="customer-detail-item">
+              <i class="bi bi-person"></i>
+              <div class="detail-content">
+                <span class="detail-label">Name</span>
+                <span class="detail-value">{{ selectedOrder.name || 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="customer-detail-item">
+              <i class="bi bi-telephone"></i>
+              <div class="detail-content">
+                <span class="detail-label">Phone</span>
+                <span class="detail-value">{{ selectedOrder.phoneNumber || 'N/A' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Items Table -->
+        <div class="order-items-section">
+          <h4>Order Items</h4>
+          <div class="table-container">
+            <table class="order-items-table">
+              <thead>
+                <tr>
+                  <th class="product-col">Product</th>
+                  <th class="quantity-col">Quantity</th>
+                  <th class="price-col">Price</th>
+                  <th class="subtotal-col">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of selectedOrder.orderItems">
+                  <td>{{ item.productName }}</td>
+                  <td class="text-center">{{ item.quantity }}</td>
+                  <td class="text-end">{{ formatCurrency(item.sellingPrice) }}</td>
+                  <td class="text-end">{{ formatCurrency(item.totalPrice) }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-end fw-bold">Total:</td>
+                  <td class="text-end fw-bold">{{ formatCurrency(selectedOrder.totalPrice) }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Close Button -->
+        <div class="modal-footer">
+          <button class="close-modal-button" (click)="closeOrderDetails()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

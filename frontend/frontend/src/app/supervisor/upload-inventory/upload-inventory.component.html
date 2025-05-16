@@ -1,0 +1,60 @@
+<div class="upload-container">
+  <div class="header">
+    <h1>Upload Inventory</h1>
+    <a routerLink="/supervisor/upload-data" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Upload Data
+    </a>
+  </div>
+
+  <div class="upload-section">
+    <div class="section-header">
+      <i class="fas fa-boxes"></i>
+      <h2>Upload Inventory Data</h2>
+    </div>
+    <p class="description">Upload a TSV file containing inventory data. The file should include barcode and quantities.</p>
+    
+    <div class="file-input-container">
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept=".tsv" hidden>
+      <button class="choose-file-button" (click)="openFileInput()">
+        Choose File
+      </button>
+      <span class="file-name" *ngIf="inventoryFileName">{{ inventoryFileName }}</span>
+    </div>
+
+    <button class="upload-button" [disabled]="!inventoryFile" (click)="uploadInventory()">
+      Upload Inventory
+    </button>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" *ngIf="showSuccessModal">
+    <div class="modal-content">
+      <div class="modal-header success">
+        <h3>Success</h3>
+        <button class="close-button" (click)="closeSuccessModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ successMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-button" (click)="closeSuccessModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div class="modal-overlay" *ngIf="showErrorModal">
+    <div class="modal-content">
+      <div class="modal-header error">
+        <h3>Error</h3>
+        <button class="close-button" (click)="closeErrorModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-button" (click)="closeErrorModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</div> 

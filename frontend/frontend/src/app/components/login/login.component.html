@@ -1,0 +1,63 @@
+<div class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">
+          <i class="bi bi-shield-lock"></i>
+        </div>
+        <h2>Welcome Back</h2>
+        <p>Please sign in to access your dashboard</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+        <div class="form-group">
+          <label for="email">
+            <i class="bi bi-envelope"></i>
+            Email Address
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="email" 
+            placeholder="Enter your email"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <i class="bi bi-lock"></i>
+            Password
+          </label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            [(ngModel)]="password" 
+            placeholder="Enter your password"
+            required>
+        </div>
+
+        <button 
+          type="submit" 
+          class="login-button"
+          [disabled]="!loginForm.form.valid">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Sign In
+        </button>
+
+        <div *ngIf="error" class="error-message">
+          <i class="bi bi-exclamation-triangle"></i>
+          {{ error }}
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <a routerLink="/" class="back-home">
+          <i class="bi bi-arrow-left"></i>
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div> 

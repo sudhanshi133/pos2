@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<div class="products-container">
+  <div class="header">
+    <h1>Products</h1>
+  </div>
+
+  <div class="search-container">
+    <input 
+      type="text" 
+      class="search-input" 
+      [(ngModel)]="searchTerm" 
+      placeholder="Search products..."
+      (keyup.enter)="searchProducts()"
+    >
+    <select [(ngModel)]="searchType" class="search-select">
+      <option value="name">Product Name</option>
+      <option value="barcode">Barcode</option>
+    </select>
+    <button class="search-button" (click)="searchProducts()">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    Loading...
+  </div>
+
+  <div *ngIf="!isLoading && !error" class="products-grid">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="product-image">
+        <img 
+          [src]="getProductImage(product.url)" 
+          [alt]="product.productName"
+          (error)="onImageError($event)"
+        >
+      </div>
+      <div class="product-info">
+        <h3>{{ product.productName }}</h3>
+        <p class="barcode">Barcode: {{ product.barcode }}</p>
+        <p class="client">Client: {{ product.clientName }}</p>
+        <div class="product-meta">
+          <span class="price">{{ formatCurrency(product.mrp) }}</span>
+          <span class="stock" [class.low-stock]="product.quantity < 10">
+            Stock: {{ product.quantity }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !error && products.length === 0" class="no-products">
+    No products found.
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="totalPages > 0">
+    <div class="pagination-info">
+      <span>Page {{ currentPage + 1 }}</span>
+    </div>
+    <div class="pagination-buttons">
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage === 0"
+        (click)="previousPage()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage >= totalPages - 1"
+        (click)="nextPage()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,44 @@
+.container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  .mat-mdc-paginator {
+    .mat-mdc-paginator-navigation-previous,
+    .mat-mdc-paginator-navigation-next {
+      color: #1976d2 !important;
+      transform: scale(0.8);
+      margin: 0 4px;
+    }
+
+    .mat-mdc-paginator-navigation-previous .mat-mdc-paginator-icon,
+    .mat-mdc-paginator-navigation-next .mat-mdc-paginator-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+// Style the table
+.mat-mdc-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+// Style the header
+.mat-mdc-header-cell {
+  font-weight: bold;
+  color: #333;
+}
+
+// Style the action buttons
+.mat-mdc-icon-button {
+  color: #666;
+  &:hover {
+    color: #1976d2;
+  }
+} 

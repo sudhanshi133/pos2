@@ -1,0 +1,40 @@
+<div>
+  <h2>Inventory</h2>
+  <div>
+    <h3>Update Inventory</h3>
+    <form (ngSubmit)="updateInventory(newInventory.barcode, newInventory.quantity)">
+      <input [(ngModel)]="newInventory.barcode" name="barcode" placeholder="Barcode" required>
+      <input [(ngModel)]="newInventory.quantity" name="quantity" type="number" placeholder="Quantity" required>
+      <button type="submit">Update</button>
+    </form>
+  </div>
+  <div>
+    <h3>Bulk Update Inventory</h3>
+    <form (ngSubmit)="bulkUpdateInventory()">
+      <div *ngFor="let item of bulkInventory; let i = index">
+        <input [(ngModel)]="item.barcode" name="barcode" placeholder="Barcode" required>
+        <input [(ngModel)]="item.quantity" name="quantity" type="number" placeholder="Quantity" required>
+        <button type="button" (click)="removeBulkItem(i)">Remove</button>
+      </div>
+      <button type="button" (click)="addBulkItem()">Add Item</button>
+      <button type="submit">Bulk Update</button>
+    </form>
+  </div>
+  <div>
+    <h3>Inventory List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Barcode</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of inventory">
+          <td>{{ item.barcode }}</td>
+          <td>{{ item.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

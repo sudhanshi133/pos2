@@ -1,0 +1,101 @@
+<app-navbar></app-navbar>
+<div class="clients-container">
+  <app-toast></app-toast>
+  <div class="header">
+    <div class="header-left">
+      <h1>Clients</h1>
+    </div>
+    <button class="add-button" (click)="openAddModal()">
+      <i class="bi bi-plus-circle"></i> Add Client
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <div class="table-section">
+    <h2 class="table-title">Clients</h2>
+    <div class="clients-grid">
+      <div class="client-card" *ngFor="let client of clients; let i = index">
+        <div class="client-info">
+          <div class="client-number">{{ (currentPage * 10) + i + 1 }}</div>
+          <div class="client-name">{{ client.clientName }}</div>
+        </div>
+        <div class="client-actions">
+          <button class="action-button edit" (click)="editClient(client)">
+            <i class="bi bi-pencil"></i> Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <div class="pagination-info">
+      <span>Page {{ currentPage + 1 }} of {{ totalPages || 1 }}</span>
+    </div>
+    <div class="pagination-buttons">
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage === 0"
+        (click)="previousPage()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage >= totalPages - 1"
+        (click)="nextPage()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Modal -->
+  <div class="modal-overlay" *ngIf="showAddModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Add New Client</h2>
+        <button class="close-button" (click)="closeAddModal()">&times;</button>
+      </div>
+      
+      <div class="form-group">
+        <label>Client Name</label>
+        <input type="text" [(ngModel)]="newClient.clientName" placeholder="Enter client name">
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-button" (click)="closeAddModal()" [disabled]="loading">Cancel</button>
+        <button class="save-button" (click)="addClient()" [disabled]="loading || !newClient.clientName">
+          <span *ngIf="!loading">Add Client</span>
+          <span *ngIf="loading">Adding...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" *ngIf="showEditModal && selectedClient">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Edit Client</h2>
+        <button class="close-button" (click)="closeModal()">&times;</button>
+      </div>
+      
+      <div class="form-group">
+        <label>Client Name</label>
+        <input type="text" [(ngModel)]="selectedClient.clientName" placeholder="Enter client name">
+      </div>
+
+      <div class="modal-actions">
+        <button class="cancel-button" (click)="closeModal()" [disabled]="loading">Cancel</button>
+        <button class="save-button" (click)="saveChanges()" [disabled]="loading || !selectedClient.clientName">
+          <span *ngIf="!loading">Save Changes</span>
+          <span *ngIf="loading">Saving...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

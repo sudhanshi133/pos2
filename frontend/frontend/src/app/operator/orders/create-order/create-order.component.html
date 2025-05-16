@@ -1,0 +1,154 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Create New Order</h5>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
+            <!-- Customer Name -->
+            <div class="mb-3">
+              <label for="clientName" class="form-label">Client Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="clientName"
+                name="clientName"
+                [(ngModel)]="order.clientName"
+                (input)="onCustomerNameChange($event)"
+                (keypress)="onCustomerNameKeyPress($event)"
+                (paste)="onCustomerNameChange($event)"
+                [class.invalid]="!validateCustomerName(order.clientName)"
+                required
+                pattern="[a-zA-Z\s]*"
+                title="Only letters and spaces are allowed"
+                placeholder="Enter client name (letters only)"
+                maxlength="50"
+                autocomplete="off"
+              >
+              <div *ngIf="!validateCustomerName(order.clientName)" class="error-message">
+                Customer name cannot contain numbers or special characters
+              </div>
+            </div>
+
+            <!-- Client Phone -->
+            <div class="mb-3">
+              <label for="clientPhone" class="form-label">Client Phone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="clientPhone"
+                name="clientPhone"
+                [(ngModel)]="order.clientPhone"
+                required
+                placeholder="Enter client phone number"
+              >
+            </div>
+
+            <!-- Barcode Input -->
+            <div class="mb-3">
+              <label for="barcode" class="form-label">Product Barcode</label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="barcode"
+                  name="barcode"
+                  [(ngModel)]="barcodeInput"
+                  (keyup.enter)="addToOrder()"
+                  placeholder="Scan or enter barcode"
+                >
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="addToOrder()"
+                  [disabled]="!barcodeInput"
+                >
+                  <i class="fas fa-plus"></i> Add
+                </button>
+              </div>
+            </div>
+
+            <!-- Order Items Table -->
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Barcode</th>
+                    <th>MRP</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of orderItems; let i = index">
+                    <td>{{ item.productName }}</td>
+                    <td>{{ item.barcode }}</td>
+                    <td>₹{{ item.mrp.toFixed(2) }}</td>
+                    <td>
+                      <div class="input-group input-group-sm">
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          (click)="updateQuantity(i, item.quantity - 1)"
+                          [disabled]="item.quantity <= 1"
+                        >
+                          <i class="fas fa-minus"></i>
+                        </button>
+                        <input
+                          type="number"
+                          class="form-control text-center"
+                          [(ngModel)]="item.quantity"
+                          (change)="updateQuantity(i, item.quantity)"
+                          min="1"
+                          [name]="'quantity_' + i"
+                        >
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          (click)="updateQuantity(i, item.quantity + 1)"
+                        >
+                          <i class="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td>₹{{ (item.mrp * item.quantity).toFixed(2) }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="removeItem(i)"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4" class="text-end"><strong>Total Amount:</strong></td>
+                    <td colspan="2"><strong>₹{{ calculateTotal().toFixed(2) }}</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="!isFormValid()"
+              >
+                <i class="fas fa-save"></i> Create Order
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

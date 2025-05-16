@@ -1,0 +1,23 @@
+<div class="container mt-4">
+    <h2>Create New Order</h2>
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="productId" class="form-label">Product</label>
+            <select class="form-control" id="productId" formControlName="productId">
+                <option value="">Select a product</option>
+                <option *ngFor="let product of products" [value]="product.id">
+                    {{ product.name }} - ${{ product.price }}
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" class="form-control" id="quantity" formControlName="quantity">
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" formControlName="notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!orderForm.valid">Place Order</button>
+    </form>
+</div> 

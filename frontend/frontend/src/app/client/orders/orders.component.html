@@ -1,0 +1,60 @@
+<div class="orders-container">
+  <div class="header">
+    <h1>My Orders</h1>
+    <button class="back-button" routerLink="/client/dashboard">Back to Dashboard</button>
+  </div>
+
+  <div class="orders-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.date | date }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="order.status.toLowerCase()">
+              {{ order.status }}
+            </span>
+          </td>
+          <td>${{ order.totalAmount }}</td>
+          <td>
+            <button class="view-button" (click)="viewOrder(order.id)">View</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="orders.length === 0" class="no-orders">
+      <p>No orders found.</p>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="orders.length > 0">
+    <div class="pagination-info">
+      <span>Page {{ currentPage + 1 }}</span>
+    </div>
+    <div class="pagination-buttons">
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage === 0"
+        (click)="previousPage()">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button 
+        class="pagination-button" 
+        [disabled]="currentPage >= totalPages - 1"
+        (click)="nextPage()">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div> 

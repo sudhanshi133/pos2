@@ -1,0 +1,50 @@
+<div>
+  <h2>Products</h2>
+  <div>
+    <h3>Add New Product</h3>
+    <form (ngSubmit)="addProduct()">
+      <input [(ngModel)]="newProduct.barcode" name="barcode" placeholder="Barcode" required>
+      <input [(ngModel)]="newProduct.name" name="name" placeholder="Name" required>
+      <input [(ngModel)]="newProduct.brand" name="brand" placeholder="Brand" required>
+      <input [(ngModel)]="newProduct.category" name="category" placeholder="Category" required>
+      <input [(ngModel)]="newProduct.mrp" name="mrp" type="number" placeholder="MRP" required>
+      <button type="submit">Add Product</button>
+    </form>
+  </div>
+  <div>
+    <h3>Search Products</h3>
+    <form (ngSubmit)="searchProducts()">
+      <input [(ngModel)]="searchQuery" name="searchQuery" placeholder="Product Name">
+      <input [(ngModel)]="searchBarcode" name="searchBarcode" placeholder="Barcode">
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div>
+    <h3>Product List</h3>
+    <button (click)="loadProducts()">View Products</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Name</th>
+          <th>Client</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.client }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>
+            <button (click)="updateProduct(product.barcode, product)">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

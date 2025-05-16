@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="reports-container">
+  <app-toast></app-toast>
+  
+  <div class="header">
+    <div class="header-left">
+      <h1>Daily Reports</h1>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <div class="date-filters">
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="date" id="startDate" [(ngModel)]="filterForm.startDate" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="date" id="endDate" [(ngModel)]="filterForm.endDate" class="form-control">
+      </div>
+      <button class="btn btn-primary" (click)="applyFilter()">Apply Filter</button>
+      <button class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+      <button class="btn btn-success" (click)="downloadReports()" [disabled]="!filterForm.startDate">
+        <i class="fas fa-download"></i> Download Report
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Reports Table -->
+  <div class="table-container" *ngIf="!loading">
+    <table class="reports-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Total Orders</th>
+          <th>Total Items</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.date | date:'mediumDate' }}</td>
+          <td>{{ report.orderCount }}</td>
+          <td>{{ report.totalItems }}</td>
+          <td>₹{{ report.revenue | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- No Data State -->
+  <div class="no-data" *ngIf="!loading && reports.length === 0">
+    No reports found for the selected period
+  </div>
+</div> 

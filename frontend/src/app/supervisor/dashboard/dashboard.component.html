@@ -1,0 +1,41 @@
+<div class="dashboard">
+  <div class="header">
+    <h1>Supervisor Dashboard</h1>
+    <div class="user-info">
+      <span>Welcome, Supervisor</span>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="cards-container">
+    <div class="card" routerLink="/supervisor/products">
+      <i class="bi bi-box-seam"></i>
+      <h2>View Products</h2>
+      <p>View and manage product inventory</p>
+    </div>
+
+    <div class="card" routerLink="/supervisor/clients">
+      <i class="bi bi-people"></i>
+      <h2>View Clients</h2>
+      <p>View client information and history</p>
+    </div>
+
+    <div class="card" routerLink="/supervisor/orders">
+      <i class="bi bi-cart-check"></i>
+      <h2>View Orders</h2>
+      <p>View and manage all orders</p>
+    </div>
+
+    <div class="card" routerLink="/supervisor/analytics">
+      <i class="bi bi-graph-up"></i>
+      <h2>Reports</h2>
+      <p>Generate and view system reports</p>
+    </div>
+
+    <div class="card" routerLink="/supervisor/upload-data">
+      <i class="bi bi-upload"></i>
+      <h2>Upload Data</h2>
+      <p>Import client and product data</p>
+    </div>
+  </div>
+</div> 

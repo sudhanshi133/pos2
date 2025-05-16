@@ -1,0 +1,48 @@
+<div class="products-container">
+  <div class="header">
+    <div class="header-left">
+      <h1>Products</h1>
+    </div>
+    <div class="header-actions">
+      <button class="action-button add" (click)="onAddInventory()">
+        <i class="bi bi-box-seam"></i> Add Inventory
+      </button>
+      <button class="action-button add" (click)="onAddProduct()">
+        <i class="bi bi-plus-circle"></i> Add Product
+      </button>
+    </div>
+    <a routerLink="/supervisor/dashboard" class="back-button">← Back to Dashboard</a>
+  </div>
+
+  <div class="products-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>Name</th>
+          <th>Client</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.client }}</td>
+          <td>${{ product.price }}</td>
+          <td>{{ product.stock }}</td>
+          <td>
+            <button class="action-button edit" (click)="editProduct(product)">
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+            <button class="action-button delete" (click)="deleteProduct(product)">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

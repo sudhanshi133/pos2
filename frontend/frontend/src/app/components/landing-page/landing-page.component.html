@@ -1,0 +1,67 @@
+<div class="landing-page">
+  <div class="landing-container">
+    <div class="landing-header">
+      <div class="logo">
+        <i class="bi bi-shield-check"></i>
+        <h1>Increff's POS System</h1>
+      </div>
+      <p class="subtitle">Choose your role to continue</p>
+    </div>
+
+    <div class="login-options">
+      <div class="login-card operator">
+        <div class="card-icon">
+          <i class="bi bi-person-gear"></i>
+        </div>
+        <h2>Operator</h2>
+        <p>Manage daily operations and orders</p>
+        <a [routerLink]="['/login']" [queryParams]="{role: 'operator'}" class="login-button">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Login as Operator
+        </a>
+      </div>
+
+      <div class="login-card supervisor">
+        <div class="card-icon">
+          <i class="bi bi-person-badge"></i>
+        </div>
+        <h2>Supervisor</h2>
+        <p>Access advanced management features</p>
+        <a [routerLink]="['/login']" [queryParams]="{role: 'supervisor'}" class="login-button">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Login as Supervisor
+        </a>
+      </div>
+
+      <div class="login-card client">
+        <div class="card-icon">
+          <i class="bi bi-person"></i>
+        </div>
+        <h2>Client Access</h2>
+        <p>View your orders, track shipments, and manage your account</p>
+        <a [routerLink]="['/login']" [queryParams]="{role: 'client'}" class="login-button">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Login as Client
+        </a>
+      </div>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <i class="bi bi-graph-up"></i>
+        <h3>Efficient Management</h3>
+        <p>Streamline your workflow with our intuitive interface</p>
+      </div>
+      <div class="feature-card">
+        <i class="bi bi-shield-check"></i>
+        <h3>Secure Access</h3>
+        <p>Role-based authentication ensures data security</p>
+      </div>
+      <div class="feature-card">
+        <i class="bi bi-bar-chart"></i>
+        <h3>Real-time Analytics</h3>
+        <p>Make informed decisions with comprehensive reports</p>
+      </div>
+    </div>
+  </div>
+</div>

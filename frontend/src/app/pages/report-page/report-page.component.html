@@ -1,0 +1,42 @@
+<div>
+  <h2>Reports</h2>
+  <div>
+    <h3>Sales Reports</h3>
+    <form (ngSubmit)="loadFilteredSalesReports()">
+      <input [(ngModel)]="filterForm.startDate" name="startDate" type="date" placeholder="Start Date">
+      <input [(ngModel)]="filterForm.endDate" name="endDate" type="date" placeholder="End Date">
+      <button type="submit">Filter</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of salesReports">
+          <td>{{ report.month }}</td>
+          <td>{{ report.revenue }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h3>Daily Reports</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of dailyReports">
+          <td>{{ report.date }}</td>
+          <td>{{ report.revenue }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

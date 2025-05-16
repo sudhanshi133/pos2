@@ -1,0 +1,35 @@
+<div>
+  <h2>Clients</h2>
+  <div>
+    <h3>Add New Client</h3>
+    <form (ngSubmit)="addClient()">
+      <input [(ngModel)]="newClient.name" name="name" placeholder="Name" required>
+      <input [(ngModel)]="newClient.email" name="email" placeholder="Email" required>
+      <input [(ngModel)]="newClient.phone" name="phone" placeholder="Phone" required>
+      <button type="submit">Add Client</button>
+    </form>
+  </div>
+  <div>
+    <h3>Client List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.name }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone }}</td>
+          <td>
+            <button (click)="updateClient(client.name, client)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

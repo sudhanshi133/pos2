@@ -1,0 +1,40 @@
+<div class="reports-container">
+  <div class="header">
+    <h1>Sales Reports</h1>
+    <div class="date-filters">
+      <input type="date" [(ngModel)]="startDate" (change)="onDateChange()" placeholder="Start Date">
+      <input type="date" [(ngModel)]="endDate" (change)="onDateChange()" placeholder="End Date">
+    </div>
+  </div>
+
+  <div class="summary-cards">
+    <div class="summary-card">
+      <h3>Total Orders</h3>
+      <p>{{ totalOrders }}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Total Revenue</h3>
+      <p>₹{{ totalRevenue | number:'1.0-0' }}</p>
+    </div>
+    <div class="summary-card">
+      <h3>Average Order Value</h3>
+      <p>₹{{ averageOrderValue | number:'1.0-0' }}</p>
+    </div>
+  </div>
+
+  <div class="report-section">
+    <h2>Most Sold Products</h2>
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let product of topProducts">
+        <div class="product-header">
+          <div class="barcode">{{ product.barcode }}</div>
+          <div class="name">{{ product.name }}</div>
+        </div>
+        <div class="product-details">
+          <div class="quantity">Quantity: {{ product.quantity }}</div>
+          <div class="total">Total: ₹{{ product.total | number:'1.0-0' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

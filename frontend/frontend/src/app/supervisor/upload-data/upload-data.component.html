@@ -1,0 +1,60 @@
+<div class="upload-container">
+  <div class="header">
+    <div class="header-left">
+      <h1>Upload Data</h1>
+      <a routerLink="/supervisor/dashboard" class="back-button">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <div class="upload-options">
+    <a routerLink="/supervisor/upload-products" class="upload-card">
+      <div class="upload-icon">
+        <i class="bi bi-box-seam"></i>
+      </div>
+      <h2>Upload Products</h2>
+      <p>Upload a TSV file containing product information</p>
+      <button class="upload-button">
+        <i class="bi bi-upload"></i> Upload Products
+      </button>
+    </a>
+
+    <a routerLink="/supervisor/upload-inventory" class="upload-card">
+      <div class="upload-icon">
+        <i class="bi bi-clipboard-data"></i>
+      </div>
+      <h2>Upload Inventory</h2>
+      <p>Upload a TSV file containing inventory data</p>
+      <button class="upload-button">
+        <i class="bi bi-upload"></i> Upload Inventory
+      </button>
+    </a>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" *ngIf="showSuccessModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload Successful</h2>
+        <button class="close-button" (click)="closeSuccessModal()">&times;</button>
+      </div>
+      <p>{{ successMessage }}</p>
+      <div class="modal-actions">
+        <button class="ok-button" (click)="closeSuccessModal()">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div class="modal-overlay" *ngIf="showErrorModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload Failed</h2>
+        <button class="close-button" (click)="closeErrorModal()">&times;</button>
+      </div>
+      <p>{{ errorMessage }}</p>
+      <div class="modal-actions">
+        <button class="ok-button" (click)="closeErrorModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div> 

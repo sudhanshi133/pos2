@@ -1,0 +1,36 @@
+<div>
+  <h2>Orders</h2>
+  <div>
+    <h3>Create New Order</h3>
+    <form (ngSubmit)="createOrder()">
+      <div *ngFor="let item of newOrder.items; let i = index">
+        <input [(ngModel)]="item.productId" name="productId" placeholder="Product ID" required>
+        <input [(ngModel)]="item.quantity" name="quantity" type="number" placeholder="Quantity" required>
+        <button type="button" (click)="newOrder.items.splice(i, 1)">Remove</button>
+      </div>
+      <button type="button" (click)="newOrder.items.push({})">Add Item</button>
+      <button type="submit">Create Order</button>
+    </form>
+  </div>
+  <div>
+    <h3>Order List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.date }}</td>
+          <td>
+            <button (click)="getOrderById(order.id)">View Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 
